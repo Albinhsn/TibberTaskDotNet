@@ -29,7 +29,7 @@ namespace TibberTask.Controllers
             RobotHelper helper = new();
             Stopwatch stopwatch = new();
             stopwatch.Start();
-            int result = helper.CalculateResult(req);
+            long result = helper.CalculateResultAdv(req);
             stopwatch.Stop();
           
             //TODO: Generate id from postgresql instead

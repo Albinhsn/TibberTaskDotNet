@@ -1,0 +1,10 @@
+./TibberTask/bin/*
+./TibberTask/DesignTimeBuild/*
+TibberTask/.vs/TibberTask/DesignTimeBuild/.dtbcache.v2
+TibberTask/.vs/TibberTask/DesignTimeBuild/.dtbcache.v2
+TibberTask/.vs/TibberTask/DesignTimeBuild/.dtbcache.v2
+*.dll
+*.dll
+*.cache
+*.pdb
+*.sentinel

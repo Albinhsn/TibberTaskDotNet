@@ -1,0 +1,179 @@
+﻿using TibberTask.Models;
+
+
+namespace TibberTask.Helpers
+{
+    public class RobotHelper
+    {
+        public int CalculateResult(ExecutionRequest Req)
+        {
+            (int, int )Point = (Req.Start.X, Req.Start.Y);
+            
+            HashSet<(int, int)> Points = new();
+            Points.Add(Point);
+            foreach (var command in Req.Commands)
+            {
+                (Points, Point) = GeneratePointsFromSteps(Points, Point, command.Steps, command.Direction);                                
+            }                        
+            return Points.Count;
+        }        
+
+
+        public (HashSet<(int, int)>, (int, int)) GeneratePointsFromSteps(HashSet<(int, int)>Points, (int, int) Point, int Steps, string Direction)
+        {
+            
+            switch (Direction)
+            {
+                case "north":
+                    var GeneratedPoints = Enumerable.Range(1, Steps).Select(i => (Point.Item1, Point.Item2 + i)).ToList();                          
+                    Points.UnionWith(GeneratedPoints);
+                    Point.Item2 += Steps;
+                    break;
+                case "south":
+                    GeneratedPoints = Enumerable.Range(1, Steps).Select(i => (Point.Item1, Point.Item2 - i)).ToList();                    
+                    Points.UnionWith(GeneratedPoints);
+                    Point.Item2 -= Steps;
+                    break;
+                case "east":
+                    GeneratedPoints = Enumerable.Range(1, Steps).Select(i => (Point.Item1 + i, Point.Item2)).ToList();
+                    Points.UnionWith(GeneratedPoints);
+                    Point.Item1 += Steps;
+                    break;
+                //Direction is west
+                default:
+                    GeneratedPoints = Enumerable.Range(1, Steps).Select(i => (Point.Item1 - i, Point.Item2)).ToList();                    
+                    Points.UnionWith(GeneratedPoints);
+                    Point.Item1 -= Steps;
+                    break;
+            }
+            
+            return (Points, Point);
+        }
+
+        public int CalculateResultAdv(ExecutionRequest Req)
+        {
+            int Result = 1;
+            Dictionary<int, List<Line>> XX = new();
+            Dictionary<int, List<Line>> YY = new();
+            Point CurrentPosition = Req.Start;
+            
+            foreach(var command in Req.Commands)
+            {
+                (CurrentPosition, int Low, int High, char Axis) = CreateNewline(CurrentPosition, command);
+                if (Axis == 'y')
+                {
+                    (YY, int newPoints) = AddNewLine(YY, Low, High, CurrentPosition.X, command.Direction);
+                    Result += newPoints;
+
+                }
+                else
+                {
+                    (XX, int newPoints) = AddNewLine(XX, Low, High, CurrentPosition.Y, command.Steps);
+                    Result += newPoints;
+                }
+                Console.WriteLine("New Count is: " + Result.ToString());
+            }
+                return Result;
+        }
+        public (Point, int, int, char) CreateNewline(Point point, Command command)
+        {
+            int Low;
+            int High;
+            char Axis;
+            switch (command.Direction)
+            {
+                case "north":
+                    Axis = 'y';
+                    Low = point.Y;
+                    point.Y += command.Steps;
+                    High = point.Y;
+                    break;
+                case "south":
+                    Axis = 'y';
+                    High = point.Y;
+                    point.Y -= command.Steps;
+                    Low = point.Y;                                        
+                    break;
+                case "east":
+                    Axis = 'x';
+                    Low = point.X;
+                    point.X += command.Steps;
+                    High = point.X;
+                    break;
+                default:
+                    //Direction is west
+                    Axis = 'x';
+                    High = point.X;                                       
+                    point.X -= command.Steps;
+                    Low = point.X;
+                    break;
+            }
+            
+            return (point, Low, High, Axis);
+        }
+        public int CheckIntersection(Dictionary<int, List<Line>> X, Dictionary<int, List<Line>> Y)
+        {
+		int intersections = 0;
+		foreach(var (key, val) in X){
+			foreach(var i in val){
+				for(int j = i.Low; j<i.High + 1; j++){
+					if(Y.ContainsKey(j)){
+						foreach(var k in Y[j]){
+							if(k.High>=key && key>=k.Low){
+								intersections ++;
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+		return intersections;
+        }
+        public (Dictionary<int, List<Line>>, int) AddNewLine(Dictionary<int, List<Line>> line, int Low, int High, int P, int Steps)
+        {
+		int Count = Steps + 1
+		if(Line.ContainsKey(P)){
+			//Line exists after last line
+			if(Low>Line[P][Line.Count - 1].High){
+				Line[P].Add(new Point(Low, High));
+			}
+			else if(Low>Line[P][0].Low({
+				Line[P].Insert(0, new Point(Low, High));
+			}
+			else{
+				int L H PrevCount =  0,0,0;
+				foreach(var val in Line[P]){
+					if(val.Low>High){
+						break;
+					}
+					if(val.High<Low){
+						L = idx + 1;
+					}
+					if(val.High>=High && val.Low<=Low){
+						return 0;
+					}
+					PrevCount += Math.Abs(val.High - val.Low) + 1;
+					H = idx;
+				}
+				if(Line[P][L].Low<Low){
+					Low = Line[P][L].Low;
+				}
+				if(Line[P][H].High>High){
+					High = Line[P][H].High;
+				}
+				Line[P].RemoveRange(L, (H-L));
+				Line[P].Insert(L, new Point(Low, High));
+				count = Math.Abs(High-Low) + 1 - PrevCount;
+			}
+		}
+		else{
+			Line[P] = new ();
+			Line[P].Add(new Point(Low, High));
+		}	
+		return Count
+        }
+
+    }
+
+}

@@ -2,7 +2,12 @@
 {
     public class Line
     {
-        public String Low { get; set; }
-        public String High { get; set; }
+        public Line(int l, int h)
+        {
+            Low = l;
+            High = h;
+        }
+        public int Low { get; set; }
+        public int High { get; set; }
     }
 }

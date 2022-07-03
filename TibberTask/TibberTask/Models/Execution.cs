@@ -2,9 +2,9 @@
 {
     public class Execution
     {
-        public Execution(int id, DateTime timest, int com, long res, double dur)
+        public Execution(int i, DateTime timest, int com, long res, double dur)
         {
-            id = id;
+            id = i;
             timestamp = timest;
             commands = com;
             result = res;

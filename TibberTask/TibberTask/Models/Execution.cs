@@ -2,19 +2,19 @@
 {
     public class Execution
     {
-        public Execution(int id, DateTime timestamp, int commands, long result, double duration)
+        public Execution(int id, DateTime timest, int com, long res, double dur)
         {
-            Id = id;
-            Timestamp = timestamp;
-            Commands = commands;
-            Result = result;
-            Duration = duration;
+            id = id;
+            timestamp = timest;
+            commands = com;
+            result = res;
+            duration = dur;
         }
-        public int Id { get; set; }
-        public DateTime Timestamp { get; set; }
-        public int Commands { get; set; }
-        public long Result { get; set; }
-        public double Duration { get; set; }
+        public int id { get; set; }
+        public DateTime timestamp { get; set; }
+        public int commands { get; set; }
+        public long result { get; set; }
+        public double duration { get; set; }
            
         
     }

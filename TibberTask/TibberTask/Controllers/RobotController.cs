@@ -11,32 +11,21 @@ namespace TibberTask.Controllers
     public class RobotController : ControllerBase
     {
         [HttpPost("/tibber-developer-test/enter-path")]
-        public IActionResult PostExecution([FromBody] string? JsonRequest)
+        public IActionResult PostExecution([FromBody] ExecutionRequest JsonRequest)
         {
-            ExecutionRequest req;
-            try {
-                req = JsonSerializer.Deserialize<ExecutionRequest>(JsonRequest);
-                
-                if (req == null)
-                {
-                    return BadRequest("");
-                }
-            }
-            catch { 
-                return BadRequest();
-            }            
+            ExecutionRequest req = JsonRequest;            
             DateTime Timestamp = DateTime.Now;
             RobotHelper helper = new();
             Stopwatch stopwatch = new();
             stopwatch.Start();
-            long result = helper.CalculateResultAdv(req);
+            long result = helper.CalculateResult(req);
             stopwatch.Stop();
           
             //TODO: Generate id from postgresql instead
             Execution execution = new(
                 0,
                 Timestamp,
-                req.Commands.Count,
+                req.commands.Count,
                 result,
                 stopwatch.Elapsed.TotalSeconds
             );

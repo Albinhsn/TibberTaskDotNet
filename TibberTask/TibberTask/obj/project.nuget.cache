@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "oyfiwfhMaoqjzklUdU3q1q5UaRDK5+towXb+w/wVipc0ErI0ZnymLSw8Oi52vH+10F1lUPe90LyAH3CI5fxdTg==",
+  "dgSpecHash": "va5wnxorCxuSLCRSt4LIA7dEdtCm7CkJVZA3kK3XQPWCzQscijsukLLTLP+MXTfx+PTdL/HN91+Jjw4xIPK5Fw==",
   "success": true,
   "projectFilePath": "B:\\Program\\Programmering\\Github\\TibberTaskDotNet\\TibberTask\\TibberTask\\TibberTask.csproj",
   "expectedPackageFiles": [
@@ -19,6 +19,7 @@
     "C:\\Users\\hart9\\.nuget\\packages\\microsoft.extensions.options\\6.0.0\\microsoft.extensions.options.6.0.0.nupkg.sha512",
     "C:\\Users\\hart9\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
     "C:\\Users\\hart9\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\hart9\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.14.0\\microsoft.visualstudio.azure.containers.tools.targets.1.14.0.nupkg.sha512",
     "C:\\Users\\hart9\\.nuget\\packages\\npgsql\\6.0.5\\npgsql.6.0.5.nupkg.sha512",
     "C:\\Users\\hart9\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\6.0.5\\npgsql.entityframeworkcore.postgresql.6.0.5.nupkg.sha512",
     "C:\\Users\\hart9\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",

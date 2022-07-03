@@ -8,3 +8,8 @@ TibberTask/.vs/TibberTask/DesignTimeBuild/.dtbcache.v2
 *.cache
 *.pdb
 *.sentinel
+.docker-compose.yml.swp
+TibberTask/.docker-compose.yml.swn
+TibberTask/.docker-compose.yml.swo
+TibberTask/.docker-compose.yml.swp
+TibberTask/.docker-compose.yml.un~

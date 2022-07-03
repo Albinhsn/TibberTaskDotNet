@@ -4,7 +4,7 @@ namespace TibberTask.Models
 {
     public class ExecutionRequest
     {
-        public Point Start { get; set; }
-        public List<Command> Commands { get; set; }
+        public Point start { get; set; }
+        public List<command> commands { get; set; }
     }
 }

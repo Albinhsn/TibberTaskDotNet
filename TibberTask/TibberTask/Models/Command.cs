@@ -1,8 +1,8 @@
 ﻿namespace TibberTask.Models
 {
-    public class Command
+    public class command
     {
-        public string Direction { get; set; }
-        public int Steps { get; set; }
+        public string direction { get; set; }
+        public int steps { get; set; }
     }
 }

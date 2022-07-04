@@ -26,7 +26,7 @@ namespace TibberTask.Controllers
             long result = helper.CalculateResult(req);
             stopwatch.Stop();
           
-            //TODO: Generate id from postgresql instead
+            
             execution exe= new();
             exe.duration = stopwatch.Elapsed.TotalSeconds;
             exe.result = result;

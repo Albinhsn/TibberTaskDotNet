@@ -7,18 +7,14 @@ namespace TibberTask.PG
     {        
         public DbSet<execution> Executions { get; set; }
         
-        public ExecutionCont(DbContextOptions<ExecutionCont> options) : base(options) 
-        {
-            
-        }
+        public ExecutionCont(DbContextOptions<ExecutionCont> options) : base(options) {}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<execution>()
                 .Property(p => p.id)
                 .ValueGeneratedOnAdd()
-                .IsRequired();            
-                
+                .IsRequired();                            
         }
     }
 }

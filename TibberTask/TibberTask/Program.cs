@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using TibberTask.PG;
+using TibberTask.Repo;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,15 +9,23 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+//builder.Services.AddSwaggerGen();
+var connectionString = builder.Configuration.GetConnectionString("TibberTask");
+builder.Services.AddEntityFrameworkNpgsql().AddDbContext<ExecutionCont>(
+    options => 
+        options.UseNpgsql(connectionString)
+        .UseLowerCaseNamingConvention()
+        );
 
+builder.Services.AddSingleton<ExecutionRepo>(); 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage();
+    //app.UseSwagger();
+    //app.UseSwaggerUI();
 }
 
 //app.UseHttpsRedirection();

@@ -3,6 +3,7 @@ using TibberTask.Helpers;
 using TibberTask.Models;
 using System.Diagnostics;
 using System.Text.Json;
+using TibberTask.Repo;
 
 namespace TibberTask.Controllers
 {
@@ -10,11 +11,15 @@ namespace TibberTask.Controllers
     
     public class RobotController : ControllerBase
     {
-        [HttpPost("/tibber-developer-test/enter-path")]
-        public IActionResult PostExecution([FromBody] ExecutionRequest JsonRequest)
+        ExecutionRepo _repo;
+        public RobotController(ExecutionRepo repo)
         {
-            ExecutionRequest req = JsonRequest;            
-            DateTime Timestamp = DateTime.Now;
+            _repo = repo; 
+        }
+
+        [HttpPost("/tibber-developer-test/enter-path")]
+        public IActionResult PostExecution([FromBody] ExecutionRequest req)
+        {            
             RobotHelper helper = new();
             Stopwatch stopwatch = new();
             stopwatch.Start();
@@ -22,15 +27,23 @@ namespace TibberTask.Controllers
             stopwatch.Stop();
           
             //TODO: Generate id from postgresql instead
-            Execution execution = new(
-                0,
-                Timestamp,
-                req.commands.Count,
-                result,
-                stopwatch.Elapsed.TotalSeconds
-            );
- 
-            return Ok(JsonSerializer.Serialize(execution));
+            execution exe= new();
+            exe.duration = stopwatch.Elapsed.TotalSeconds;
+            exe.result = result;
+            exe.commands = req.commands.Count;
+            exe.timestamp = DateTime.UtcNow;
+            
+            execution createdExe;
+            try
+            {
+                createdExe = _repo.InsertExecutionAsync(exe).Result;
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Something went wrong" + ex.ToString());
+            }
+
+            return Ok(JsonSerializer.Serialize(createdExe));
         }
     }
 }

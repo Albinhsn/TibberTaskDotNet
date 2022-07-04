@@ -11,3 +11,5 @@ TibberTask/.docker-compose.yml.swn
 TibberTask/.docker-compose.yml.swo
 TibberTask/.docker-compose.yml.swp
 TibberTask/.docker-compose.yml.un~
+*.dll
+*.cache

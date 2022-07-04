@@ -31,3 +31,7 @@ B:\Program\Programmering\Github\TibberTaskDotNet\TibberTask\TibberTask\obj\Debug
 B:\Program\Programmering\Github\TibberTaskDotNet\TibberTask\TibberTask\obj\Debug\net6.0\TibberTask.pdb
 B:\Program\Programmering\Github\TibberTaskDotNet\TibberTask\TibberTask\obj\Debug\net6.0\TibberTask.genruntimeconfig.cache
 B:\Program\Programmering\Github\TibberTaskDotNet\TibberTask\TibberTask\obj\Debug\net6.0\ref\TibberTask.dll
+B:\Program\Programmering\Github\TibberTaskDotNet\TibberTask\TibberTask\bin\Debug\net6.0\EFCore.NamingConventions.dll
+B:\Program\Programmering\Github\TibberTaskDotNet\TibberTask\TibberTask\bin\Debug\net6.0\Humanizer.dll
+B:\Program\Programmering\Github\TibberTaskDotNet\TibberTask\TibberTask\bin\Debug\net6.0\Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll
+B:\Program\Programmering\Github\TibberTaskDotNet\TibberTask\TibberTask\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll

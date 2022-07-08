@@ -7,13 +7,13 @@ namespace TibberTask.Helpers
 {
     public class RobotHelper
     {                
-        public int CalculateResult(ExecutionRequest Req)
+        public long CalculateResult(ExecutionRequest Req)
         {
             if (Req.commands.Count == 0)
             {
                 return 1;
             }
-            int Result = 0;    
+            long Result = 0;    
             //Lines are stored with position on the other axis as key, then a list<(int, int)> containing the lines and their lowest and highest point 
             Hashtable XX = new();
             List<int> XXKeys = new();
@@ -30,12 +30,12 @@ namespace TibberTask.Helpers
                 //Add the new line and calculate the amount of new points it (creates on the same axis)
                 if (Axis == 'y')
                 {
-                    (YY, YYKeys, int newPoints) = AddNewLine(YY, YYKeys, Low, High, CurrentPosition.x, Req.commands[i].steps);
+                    (YY, YYKeys, long newPoints) = AddNewLine(YY, YYKeys, Low, High, CurrentPosition.x, Req.commands[i].steps);
                     Result += newPoints;
                 }
                 else
                 {
-                    (XX, XXKeys, int newPoints) = AddNewLine(XX, XXKeys, Low, High, CurrentPosition.y, Req.commands[i].steps);
+                    (XX, XXKeys, long newPoints) = AddNewLine(XX, XXKeys, Low, High, CurrentPosition.y, Req.commands[i].steps);
                     Result += newPoints;
                 }                                
             }
@@ -115,9 +115,9 @@ namespace TibberTask.Helpers
             Also adds a new key to keys if present
             Returns the new lines, a list of existing keys and the number of new points
          */
-        public (Hashtable, List<int>, int) AddNewLine(Hashtable Lines, List<int> Keys, int Low, int High, int key, int Steps)
+        public (Hashtable, List<int>, long) AddNewLine(Hashtable Lines, List<int> Keys, int Low, int High, int key, int Steps)
         {
-            int Count = Steps + 1;
+            long Count = Steps + 1;
             if (Lines.ContainsKey(key))
             {
                 List<(int, int)> line = (List<(int, int)>) Lines[key];
@@ -141,14 +141,14 @@ namespace TibberTask.Helpers
                     for(int i = 0; i<line.Count; i++)
                     {
                         if (line[i].Item1 > High)
-                        {
+                        {                           
                             break;
                         }
                         if (Low > line[i].Item2)
                         {
                             lowIdx = i + 1;
                             continue;
-                        }
+                        }                        
                         prevCount += Math.Abs(line[i].Item1 - line[i].Item2) + 1;
                         highIdx = i;
                     }
@@ -160,9 +160,12 @@ namespace TibberTask.Helpers
                     if (line[highIdx].Item2 > High)
                     {
                         High = line[highIdx].Item2;
-                    }                   
-                    //Deletes previous lines and inserts the combined one  
-                    line.RemoveRange(lowIdx, (highIdx - lowIdx) + 1);
+                    }
+                    //Deletes previous lines and inserts the combined one                      
+                    if (highIdx-lowIdx + 1 >= 0)
+                    {
+                        line.RemoveRange(lowIdx, highIdx - lowIdx + 1);
+                    }                    
                     line.Insert(lowIdx, (Low, High));
                     //Count is difference between the new line and the amount of points from the previous line
                     Count = Math.Abs(High- Low) + 1 - prevCount;

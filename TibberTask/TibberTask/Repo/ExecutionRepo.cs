@@ -16,12 +16,7 @@ namespace TibberTask.Repo
         public async Task<execution> InsertExecutionAsync(execution exe)
         {
             
-            _context.AddAsync(exe);
-            Console.WriteLine(exe.id.ToString());
-            Console.WriteLine(exe.result.ToString());
-            Console.WriteLine(exe.duration.ToString());
-            Console.WriteLine(exe.commands.ToString());
-            Console.WriteLine(exe.timestamp.ToString());
+            _context.AddAsync(exe);            
             await _context.SaveChangesAsync();            
             return exe;
         }
